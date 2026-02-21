@@ -1,21 +1,18 @@
-def get_human_age(cat_age: int, dog_age: int) -> list:
+def get_human_age(cat_age: int, dog_age: int) -> list[int]:
+    if not isinstance(cat_age, int) or not isinstance(dog_age, int):
+        raise TypeError("Ages must be integers")
 
-    def calculate_single_age(animal_age: int, year_step: int) -> int:
+    if cat_age < 0 or dog_age < 0:
+        raise ValueError("Ages cannot be negative")
 
+    def calculate_single_age(animal_age: int, step: int) -> int:
         if animal_age < 15:
             return 0
-
-        human_years = 1
-
-        if animal_age >= 24:
-            human_years += 1
-
-            extra_years = (animal_age - 24) // year_step
-            human_years += extra_years
-
-        return human_years
+        if animal_age < 24:
+            return 1
+        return 2 + (animal_age - 24) // step
 
     return [
-        calculate_single_age(cat_age, 4),  # Cat step is 4 (Шаг кота — 4)
-        calculate_single_age(dog_age, 5)  # Dog step is 5 (Шаг собаки — 5)
+        calculate_single_age(cat_age, 4),
+        calculate_single_age(dog_age, 5)
     ]
